@@ -17,7 +17,12 @@ class JournalEntriesController < ApplicationController
             redirect '/journal_entries/new'
         end
     end
+
     #show page for entries
+    get '/journal_entries/:id'
+        @journal_entry = JournalEntry.find(params[:id])
+        erb :'/journal_entries/show'
+    end
 
     #index route for all entries
 end
