@@ -7,14 +7,12 @@ class ApplicationController < Sinatra::Base
     set :views, 'app/views'
     enable :sessions
     set :session_secret, "secret_app"
+    #register Sinatra::Flash
   end
 
   get "/" do
-    if logged_in?
-      redirect "/users/#{current_user.id}"
-    else
-      erb :welcome
-    end
+    redirect_if_logged_in
+    erb :welcome
   end
 
   helpers do
@@ -29,6 +27,19 @@ class ApplicationController < Sinatra::Base
 
     def authorized_to_edit?(journal_entry)
       journal_entry.user == current_user
+    end
+
+    def redirect_if_not_logged_in
+      if !logged_in?
+        flash[:errors] = "You must be logged in to view the page you tried to view."
+        redirect '/'
+      end
+    end
+
+    def redirect_if_logged_in
+      if logged_in?
+        redirect "/users/#{current_user.id}"
+      end
     end
 
   end

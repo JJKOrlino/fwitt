@@ -12,11 +12,13 @@ class UsersController < ApplicationController
             puts session
             redirect "users/#{@user.id}"
         else 
-
+            #flash[:errors] = "Your e-mail or password was incorrect."
+            redirect '/login'
         end
     end
 
     get '/signup' do
+        redirect_if_logged_in
         erb :signup
     end
 

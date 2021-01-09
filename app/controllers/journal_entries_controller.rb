@@ -6,18 +6,15 @@ class JournalEntriesController < ApplicationController
     end
   
     get '/journal_entries/new' do
-      redirect_if_not_logged_in
+      #redirect_if_not_logged_in
       erb :'/journal_entries/new'
     end
   
     post '/journal_entries' do
-      redirect_if_not_logged_in
       if params[:content] != ""
-        @journal_entry = JournalEntry.create(content: params[:content], user_id: current_user.id, title: params[:title], mood: params[:mood])
-        flash[:message] = "Journal entry successfully created." if @journal_entry.id
+        @journal_entry = JournalEntry.create(content: params[:content], user_id: current_user.id)
         redirect "/journal_entries/#{@journal_entry.id}"
       else
-        flash[:errors] = "Something went wrong - you must provide content for your entry."
         redirect '/journal_entries/new'
       end
     end

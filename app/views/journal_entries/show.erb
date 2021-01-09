@@ -1,4 +1,16 @@
-show page for journal entries
-
 <p><%= @journal_entry.content %></p>
 
+<p>Created by: <%= @journal_entry.user.name %></p>
+
+<p>created on <%= @journal_entry.formatted_created_at %></p>
+
+
+<% if authorized_to_edit?(@journal_entry) %>
+  <a href="/journal_entries/<%= @journal_entry.id %>/edit">Edit Entry</a>
+  <br><br>
+  <form class="" action="/journal_entries/<%= @journal_entry.id %>" method="post">
+    <!-- How do I turn this form submission into a DELETE request??? -->
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="submit" name="" value="Delete this Entry">
+  </form>
+<% end %>
