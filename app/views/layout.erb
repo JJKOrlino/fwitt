@@ -16,15 +16,21 @@
   <body>
     <div class="nav">
       <a href="/logout">Logout</a>
-      <a href="/journal_entries">All Posts</a>
+      <a href="/journal_entries">Home</a>
       <a href="/journal_entries/new">+ New Entry</a>
       </div>
     <div class="wrapper">
+      <% if flash[:message] %>
+      <h3><%= flash[:message] %></h3>
+      <% end %>
+      <% if flash[:errors] %>
+      <h3 style="color: red;"><%= flash[:errors] %></h3>
+      <% end %>
 
         <%= yield %>
 
       <footer class="branding">
-        <small>&copy; 2021 <strong>Fwitt</strong></small>
+        <small>&copy; 2021 <strong>FWITT</strong></small>
       </footer>
     </div>
 

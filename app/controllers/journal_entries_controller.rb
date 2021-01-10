@@ -6,8 +6,9 @@ class JournalEntriesController < ApplicationController
     end
   
     get '/journal_entries/new' do
-      #redirect_if_not_logged_in
+      redirect_if_not_logged_in
       erb :'/journal_entries/new'
+      flash[:message] = "You must be logged in."
     end
   
     post '/journal_entries' do
@@ -50,7 +51,7 @@ class JournalEntriesController < ApplicationController
       set_journal_entry
       if authorized_to_edit?(@journal_entry)
         @journal_entry.destroy
-        flash[:message] = "Successfully deleted that entry."
+        flash[:message] = "FWITT deleted."
         redirect '/journal_entries'
       else
         redirect '/journal_entries'
